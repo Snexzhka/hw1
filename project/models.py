@@ -8,7 +8,7 @@ class CookBook(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
-    count = Column(Integer, index=True, default=0)
+    count = Column(Integer, default=0)
     cook_time = Column(Integer, default=0)
     descript = Column(String)
     ingredients = Column(String, default=" ")
