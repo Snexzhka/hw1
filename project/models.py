@@ -1,5 +1,5 @@
 from database import Base
-from sqlalchemy import Column, String, Integer, Index
+from sqlalchemy import Column, String, Integer
 
 
 class CookBook(Base):
@@ -9,8 +9,7 @@ class CookBook(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, index=True)
     count = Column(Integer, index=True, default=0)
-    cook_time = Column(Integer, index=True,  default=0)
+    cook_time = Column(Integer, default=0)
     descript = Column(String)
     ingredients = Column(String, default=" ")
-    Index("ix_Cookbook_cook_time", "cook_time")
-
+    
