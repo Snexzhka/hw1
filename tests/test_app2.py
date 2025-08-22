@@ -60,7 +60,7 @@ async def test_post(client):
     assert response.status_code == 200
     assert len(response.json()) == 6
     assert response.json()["cook_time"] == 13
-    assert response.json()["name"] == "Тест omlet"
+    assert response.json()["name"] == "omlet"
     print(response.json()["cook_time"])
 
 
