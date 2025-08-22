@@ -12,4 +12,5 @@ class CookBook(Base):
     cook_time = Column(Integer, index=True,  default=0)
     descript = Column(String)
     ingredients = Column(String, default=" ")
+    Index("ix_Cookbook_cook_time", "cook_time")
 
