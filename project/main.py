@@ -56,6 +56,6 @@ async def add_recipe(recipe: schemas.CookBookIn)-> models.CookBook:
         
         async_session.add(new_recipe)
         await async_session.commit()
-    return schemas.CookBookOut.from_orm(new_recipe)
+    return schemas.CookBookIn.from_orm(new_recipe)
 
 
