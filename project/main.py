@@ -55,6 +55,6 @@ async def add_recipe(recipe: schemas.CookBookIn)-> models.CookBook:
         
         async_session.add(new_recipe)
         await async_session.commit()
-    return new_recipe
+        return new_recipe
 
 
