@@ -29,7 +29,7 @@ async def recipes() -> List[models.CookBook]:
         res = await async_session.execute(select(models.CookBook).order_by(models.CookBook.count.desc()))
         await async_session.commit()
     result = res.scalars().all()
-    return [schemas.CookBookOut.from_orm(row) for row in result]
+    return [schemas.CookBookOut.from_attributes(row) for row in result]
 
 
 @app.get("/recipes/{recipe_id}", response_model=schemas.CookBookOut)
@@ -56,6 +56,6 @@ async def add_recipe(recipe: schemas.CookBookIn)-> models.CookBook:
         
         async_session.add(new_recipe)
         await async_session.commit()
-    return schemas.CookBookIn.from_orm(new_recipe)
+    return schemas.CookBookIn.from_attributes(new_recipe)
 
 
