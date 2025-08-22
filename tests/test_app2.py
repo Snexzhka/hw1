@@ -53,14 +53,14 @@ async def test_recipess(client):
 async def test_post(client):
     """
     Тест для проверки эгдпоинта по добавлению нового рецепта. Используется фикстура по созданию
-    подключения, содержащая в себе создание БД и добавление в нее записи. Проверяется статус ответа, длтна словарика, и
+    подключения, содержащая в себе создание БД и добавление в нее записи. Проверяется статус ответа, длина словарика, и
     значение поля "время приготовления" и "имя"= переданному (13 и омлет)
     """
     response = await client.post("/recipes/", json=data)
     assert response.status_code == 200
     assert len(response.json()) == 6
     assert response.json()["cook_time"] == 13
-    assert response.json()["name"] == "omlet"
+    assert response.json()["name"] == "Тест omlet"
     print(response.json()["cook_time"])
 
 
