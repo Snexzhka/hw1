@@ -19,21 +19,16 @@ class BaseRecipes(BaseModel):
 class CookBookIn(BaseRecipes):
     ...
 
-
-
-    class Config:
-        model_config = ConfigDict(from_attributes=True)
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
+        
         
 
 class CookBookOut(BaseRecipes):
     id: int
     count: int
-
-
-    class Config:
-        model_config = ConfigDict(from_attributes=True)
-        from_attributes = True
+    
+    model_config = ConfigDict(from_attributes=True)
+        
         
 
 
