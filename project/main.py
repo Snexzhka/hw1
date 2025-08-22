@@ -51,10 +51,10 @@ async  def get_recipes_id(recipe_id: int = Path(...,title="id of recipe"))-> mod
 async def add_recipe(recipe: schemas.CookBookIn)-> models.CookBook:
     new_recipe = models.CookBook(name=recipe.name, cook_time=recipe.cook_time,
                                  descript=recipe.descript, ingredients=recipe.ingredients)
-    async with session as async_session:
-        await async_session.begin():
-        await async_session.add(new_recipe)
-        await async_session.commit()
+    async with async_session as session:
+        
+        session.add(new_recipe)
+        await session.commit()
         return new_recipe
 
 
