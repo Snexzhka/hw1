@@ -1,5 +1,5 @@
 from database import Base
-from sqlalchemy import Column, String, Integer
+from sqlalchemy import Column, String, Integer, Index
 
 
 class CookBook(Base):
