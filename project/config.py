@@ -1,4 +1,4 @@
-from pydantic.v1 import BaseSettings
+from pydantic.v2 import BaseSettings
 
 
 
