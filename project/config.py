@@ -1,8 +1,12 @@
 from pydantic.v2 import BaseSettings
+from pydantic_settings import (
+    BaseSettings,
+    EnvSettingsSource,
+    PydanticBaseSettingsSource,
+    SettingsConfigDict,
+)
 
-
-
-class Setting(BaseSettings):
+class Settings(BaseSettings):
     
     model_config = SettingsConfigDict(
         config_file=" ", 
