@@ -1,5 +1,6 @@
 from sqlalchemy import Column, String, Integer
-from database import Base  # mypy: enable-error-code="truthy-bool, ignore-without-code"
+from database import Base  # type: ignore[import-not-found]
+# mypy: enable-error-code="truthy-bool, ignore-without-code"
 
 
 
