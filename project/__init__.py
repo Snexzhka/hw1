@@ -1,1 +1,1 @@
-MYPYPATH=project
+MYPYPATH= .
