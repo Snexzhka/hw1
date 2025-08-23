@@ -8,7 +8,7 @@ import schemas  # type: ignore[import-not-found]
 import models  # type: ignore[import-not-found]
 
 from database import engine, session  # type: ignore[import-not-found]
-# mypy: enable-error-code="truthy-bool, ignore-without-code"
+
 
 
 
