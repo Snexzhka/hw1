@@ -20,6 +20,7 @@ jobs:
           pip install -r requirements.txt
       - name: Test with pytest
         run: |
+          export PYTHONPATH=$PYTHONPATH:$(pwd)
           pytest tests
   lint:
     runs-on: ubuntu-latest
@@ -38,6 +39,7 @@ jobs:
           if [ -f requirements.txt]; then pip install -r requirements.txt; fi
       - name: Lint with mypy
         run: |
+          export PYTHONPATH=$PYTHONPATH:$(pwd)
           mypy project/
       - name: Lint with black
         run: |
