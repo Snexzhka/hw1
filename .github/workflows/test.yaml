@@ -36,7 +36,7 @@ jobs:
           pip install -r requirements.txt
       - name: Lint with mypy
         run: |  
-          mypy --python-executable project/ 
+          mypy --python-executable -m project/ 
           enable_error_code = [import-not-found], ignore-without-code, unused-awaitable
       - name: Lint with black
       - name: Lint with black
