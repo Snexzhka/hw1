@@ -15,13 +15,11 @@ class BaseRecipes(BaseModel):
 
 class CookBookIn(BaseRecipes):
     ...
-
     model_config = ConfigDict(from_attributes=True)
         
         
 class CookBookOut(BaseRecipes):
     id: int
-    count: int
-    
+    count: int    
     model_config = ConfigDict(from_attributes=True)
         
