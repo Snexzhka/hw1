@@ -25,6 +25,3 @@ class CookBookOut(BaseRecipes):
     
     model_config = ConfigDict(from_attributes=True)
         
-        
-
-
