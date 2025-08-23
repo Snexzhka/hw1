@@ -3,8 +3,9 @@ from fastapi import FastAPI, Path
 from contextlib import asynccontextmanager
 from typing import List
 
-import models
 import schemas
+import models
+
 from database import engine, session
 
 
