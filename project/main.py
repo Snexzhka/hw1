@@ -1,13 +1,14 @@
 from sqlalchemy.future import select
 from fastapi import FastAPI, Path
 from contextlib import asynccontextmanager
-from typing import List
+from typing import List  
 
-import schemas  # mypy: enable-error-code="truthy-bool, ignore-without-code"
-import models  # mypy: enable-error-code="truthy-bool, ignore-without-code"
+import schemas  # type: ignore[import-not-found]
 
-from database import engine, session  # mypy: enable-error-code="truthy-bool, ignore-without-code"
+import models  # type: ignore[import-not-found]
 
+from database import engine, session  # type: ignore[import-not-found]
+# mypy: enable-error-code="truthy-bool, ignore-without-code"
 
 
 
