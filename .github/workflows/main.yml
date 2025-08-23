@@ -36,8 +36,8 @@ jobs:
           pip install -r requirements.txt
       - name: Lint with mypy
         run: |  
-          MYPYPATH ~/hw1
           mypy project/
+          enable_error_code = truthy-bool, ignore-without-code, unused-awaitable
       - name: Lint with black
         run: |
           black --diff --check project/
