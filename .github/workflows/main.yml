@@ -1,4 +1,4 @@
-name: Test and Lint
+name: TestLint
 on:
   workflow_dispatch:
   pull_request:
