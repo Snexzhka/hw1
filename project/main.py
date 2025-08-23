@@ -1,12 +1,11 @@
 from sqlalchemy.future import select
 from fastapi import FastAPI, Path
 from contextlib import asynccontextmanager
+
 from typing import List  
 
 import schemas  # type: ignore[import-not-found]
-
 import models  # type: ignore[import-not-found]
-
 from database import engine, session  # type: ignore[import-not-found]
 
 
@@ -24,7 +23,7 @@ app = FastAPI(lifespan=lifespan)
 async def recipes() -> List[models.CookBook]:
     async with session as async_session:
         res = await async_session.execute(
-           select(models.CookBook).order_by(models.CookBook.count.desc())
+            select(models.CookBook).order_by(models.CookBook.count.desc())
         )
         await async_session.commit()
     result = res.scalars().all()
@@ -35,9 +34,9 @@ async def recipes() -> List[models.CookBook]:
 async  def get_recipes_id(
     recipe_id: int = Path(...,title="id of recipe")
 ) -> models.CookBook | str:
-    async  with session as async_session:
+    async with session as async_session:
         res = await async_session.execute(
-          select(models.CookBook).where(recipe_id == models.CookBook.id)
+            select(models.CookBook).where(recipe_id == models.CookBook.id)
         )
         if res:
             result = res.scalar()
