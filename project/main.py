@@ -50,12 +50,13 @@ async  def get_recipes_id(
 @app.post("/recipes/", response_model=schemas.CookBookIn)
 async def add_recipe(recipe: schemas.CookBookIn) -> schemas.CookBookIn:
     new_recipe = models.CookBook(
+        
         name=recipe.name, 
         descript=recipe.descript,
         cook_time=recipe.cook_time,
         ingredients=recipe.ingredients,
    )    
-    async with session as async_session:        
+   async with session as async_session:        
         async_session.add(new_recipe)
         await async_session.commit()
         res = schemas.CookBookIn.model_validate(new_recipe)
