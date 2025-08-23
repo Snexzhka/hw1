@@ -1,7 +1,6 @@
 from sqlalchemy.future import select
 from fastapi import FastAPI, Path
 from contextlib import asynccontextmanager
-
 from typing import List  
 
 import schemas  # type: ignore[import-not-found]
@@ -32,7 +31,6 @@ async def recipes() -> List[models.CookBook]:
     return [schemas.CookBookOut.model_validate(row) for row in result]
     
 
-
 @app.get("/recipes/{recipe_id}", response_model=schemas.CookBookOut)
 async  def get_recipes_id(
     recipe_id: int = Path(...,title="id of recipe")
@@ -41,7 +39,6 @@ async  def get_recipes_id(
         res = await async_session.execute(
           select(models.CookBook).where(recipe_id == models.CookBook.id)
         )
-
         if res:
             result = res.scalar()
             result.count += 1
@@ -51,7 +48,6 @@ async  def get_recipes_id(
         return result
 
 
-
 @app.post("/recipes/", response_model=schemas.CookBookIn)
 async def add_recipe(recipe: schemas.CookBookIn) -> schemas.CookBookIn:
     new_recipe = models.CookBook(
@@ -59,8 +55,7 @@ async def add_recipe(recipe: schemas.CookBookIn) -> schemas.CookBookIn:
         cook_time=recipe.cook_time,
         descript=recipe.descript, 
         ingredients=recipe.ingredients,
-    )
-    
+    )    
     async with session as async_session:        
         async_session.add(new_recipe)
         await async_session.commit()
