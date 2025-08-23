@@ -1,6 +1,7 @@
 from sqlalchemy.future import select
 from fastapi import FastAPI, Path
 from contextlib import asynccontextmanager
+
 from typing import List  
 
 import schemas  # type: ignore[import-not-found]
@@ -10,13 +11,9 @@ import models  # type: ignore[import-not-found]
 from database import engine, session  # type: ignore[import-not-found]
 
 
-
-
-
-
 @asynccontextmanager
 async def lifespan(app:FastAPI):
-    async  with engine.begin() as conn:
+    async with engine.begin() as conn:
         await conn.run_sync(models.Base.metadata.create_all)
     yield
 
@@ -24,11 +21,12 @@ async def lifespan(app:FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 
-
-@app.get('/recipes/', response_model=List[schemas.CookBookOut])
+@app.get("/recipes/", response_model=List[schemas.CookBookOut])
 async def recipes() -> List[models.CookBook]:
     async with session as async_session:
-        res = await async_session.execute(select(models.CookBook).order_by(models.CookBook.count.desc()))
+        res = await async_session.execute(
+             select(models.CookBook).order_by(models.CookBook.count.desc())
+        )
         await async_session.commit()
     result = res.scalars().all()
     return [schemas.CookBookOut.model_validate(row) for row in result]
@@ -36,10 +34,13 @@ async def recipes() -> List[models.CookBook]:
 
 
 @app.get("/recipes/{recipe_id}", response_model=schemas.CookBookOut)
-async  def get_recipes_id(recipe_id: int = Path(...,title="id of recipe"))-> models.CookBook | str:
+async  def get_recipes_id(
+    recipe_id: int = Path(...,title="id of recipe")
+)-> models.CookBook | str:
     async  with session as async_session:
         res = await async_session.execute(
-                select(models.CookBook).where(recipe_id == models.CookBook.id))
+            select(models.CookBook).where(recipe_id == models.CookBook.id)
+        )
 
         if res:
             result = res.scalar()
@@ -53,13 +54,15 @@ async  def get_recipes_id(recipe_id: int = Path(...,title="id of recipe"))-> mod
 
 @app.post("/recipes/", response_model=schemas.CookBookIn)
 async def add_recipe(recipe: schemas.CookBookIn)-> schemas.CookBookIn:
-    new_recipe = models.CookBook(name=recipe.name, cook_time=recipe.cook_time,
-                                 descript=recipe.descript, ingredients=recipe.ingredients)
+    new_recipe = models.CookBook(
+        name=recipe.name, 
+        cook_time=recipe.cook_time,
+        descript=recipe.descript, 
+        ingredients=recipe.ingredients,
+    )
     async with session as async_session:
         
         async_session.add(new_recipe)
         await async_session.commit()
         res = schemas.CookBookIn.model_validate(new_recipe)
     return res.model_dump()
-
-
