@@ -3,10 +3,10 @@ from fastapi import FastAPI, Path
 from contextlib import asynccontextmanager
 from typing import List
 
-import schemas
-import models
+import schemas  # mypy: enable-error-code="truthy-bool, ignore-without-code"
+import models  # mypy: enable-error-code="truthy-bool, ignore-without-code"
 
-from database import engine, session
+from database import engine, session  # mypy: enable-error-code="truthy-bool, ignore-without-code"
 
 
 
