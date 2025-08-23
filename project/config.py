@@ -1,7 +1,6 @@
-from pydantic import BaseSettings
 from pydantic_settings import BaseSettings as PydanticSettings
 
-class Settings(BaseSettings):
+class Settings(PydanticSettings):
     
     model_config = SettingsConfigDict(
         config_file=" ", 
