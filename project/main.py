@@ -49,15 +49,15 @@ async  def get_recipes_id(recipe_id: int = Path(...,title="id of recipe"))-> mod
 
 
 
-@app.post("/recipes/", response_model=schemas.CookBookOut)
-async def add_recipe(recipe: schemas.CookBookIn)-> schemas.CookBookOut:
+@app.post("/recipes/", response_model=schemas.CookBookIn)
+async def add_recipe(recipe: schemas.CookBookIn)-> schemas.CookBookIn:
     new_recipe = models.CookBook(name=recipe.name, cook_time=recipe.cook_time,
                                  descript=recipe.descript, ingredients=recipe.ingredients)
     async with session as async_session:
         
         async_session.add(new_recipe)
         await async_session.commit()
-        res = schemas.CookBookOut.model_validate(new_recipe)
+        res = schemas.CookBookIn.model_validate(new_recipe)
     return res.model_dump()
 
 
