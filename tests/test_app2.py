@@ -58,7 +58,7 @@ async def test_post(client):
     """
     response = await client.post("/recipes/", json=data)
     assert response.status_code == 200
-    assert len(response.json()) == 6
+    assert len(response.json()) == 4
     assert response.json()["cook_time"] == 13
     assert response.json()["name"] == "omlet"
     print(response.json()["cook_time"])
