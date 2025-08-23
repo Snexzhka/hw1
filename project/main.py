@@ -31,7 +31,7 @@ async def recipes() -> List[models.CookBook]:
     
 
 @app.get("/recipes/{recipe_id}", response_model=schemas.CookBookOut)
-async  def get_recipes_id(
+async def get_recipes_id(
     recipe_id: int = Path(...,title="id of recipe")
 ) -> models.CookBook | str:
     async with session as async_session:
