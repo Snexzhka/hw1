@@ -24,7 +24,7 @@ app = FastAPI(lifespan=lifespan)
 async def recipes() -> List[models.CookBook]:
     async with session as async_session:
         res = await async_session.execute(
-             select(models.CookBook).order_by(models.CookBook.count.desc())
+           select(models.CookBook).order_by(models.CookBook.count.desc())
         )
         await async_session.commit()
     result = res.scalars().all()
@@ -52,8 +52,8 @@ async  def get_recipes_id(
 async def add_recipe(recipe: schemas.CookBookIn) -> schemas.CookBookIn:
     new_recipe = models.CookBook(
         name=recipe.name, 
+        descript=recipe.descript,
         cook_time=recipe.cook_time,
-        descript=recipe.descript, 
         ingredients=recipe.ingredients,
     )    
     async with session as async_session:        
