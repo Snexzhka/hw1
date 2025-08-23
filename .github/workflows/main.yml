@@ -46,7 +46,7 @@ jobs:
       - name: Lint with mypy
         run: |
           export PYTHONPATH=$PYTHONPATH:$(pwd)
-          mypy -m project
+          mypy ~/hw1/project
       - name: Lint with black
         run: |
           black --diff --check project/
