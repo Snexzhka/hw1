@@ -30,7 +30,7 @@ async def recipes() -> List[models.CookBook]:
         await async_session.commit()
     result = res.scalars().all()
     res_dict = [schemas.CookBookOut.model_validate(row) for row in result]
-    return res_dict.model_dump()
+    return res_dict
 
 
 @app.get("/recipes/{recipe_id}", response_model=schemas.CookBookOut)
