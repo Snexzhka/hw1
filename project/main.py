@@ -29,7 +29,8 @@ async def recipes() -> List[models.CookBook]:
         res = await async_session.execute(select(models.CookBook).order_by(models.CookBook.count.desc()))
         await async_session.commit()
     result = res.scalars().all()
-    return [schemas.CookBookOut.from_orm(row) for row in result]
+    res_dict = [schemas.CookBookOut.model_validate(row) for row in result]
+    return res_dict.model_dump()
 
 
 @app.get("/recipes/{recipe_id}", response_model=schemas.CookBookOut)
