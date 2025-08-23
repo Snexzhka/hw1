@@ -1,5 +1,5 @@
-import pydantic
-from pydantic import BaseModel, Field, ConfigDict
+
+from pydantic.v2 import BaseModel, Field, ConfigDict
 
 
 # class Ingredients(BaseModel):
