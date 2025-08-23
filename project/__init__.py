@@ -1,1 +1,1 @@
-MYPYPATH=hw1
+MYPYPATH=project
