@@ -1,10 +1,10 @@
 
 from contextlib import asynccontextmanager
 
-import . models
-import . schemas
+from hw1.project import models
+from hw1.project import schemas
 from typing import List
-from . database import engine, session
+from hw1.project.database import engine, session
 
 from sqlalchemy.future import select
 from fastapi import FastAPI, Path
