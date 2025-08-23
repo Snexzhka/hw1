@@ -19,3 +19,4 @@ sqlparse==0.5.3
 starlette==0.47.2
 Flask-SQLAlchemy==3.1.1
 pytest-asyncio==1.1.0
+httptools==0.6.4
