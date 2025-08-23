@@ -5,7 +5,7 @@ flake8-pie==0.16.0
 isort==6.0.1
 mypy==1.17.1
 pytest==8.4.1
-uvicorn[standard]==0.15.0
+uvicorn[standard]==0.35.0
 SQLAlchemy==2.0.42
 aiosqlite==0.17.0
 greenlet==1.1.2
