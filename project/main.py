@@ -12,7 +12,7 @@ from database import engine, session  # type: ignore[import-not-found]
 
 
 @asynccontextmanager
-async def lifespan(app:FastAPI):
+async def lifespan(app: FastAPI):
     async with engine.begin() as conn:
         await conn.run_sync(models.Base.metadata.create_all)
     yield
@@ -36,10 +36,10 @@ async def recipes() -> List[models.CookBook]:
 @app.get("/recipes/{recipe_id}", response_model=schemas.CookBookOut)
 async  def get_recipes_id(
     recipe_id: int = Path(...,title="id of recipe")
-)-> models.CookBook | str:
+) -> models.CookBook | str:
     async  with session as async_session:
         res = await async_session.execute(
-            select(models.CookBook).where(recipe_id == models.CookBook.id)
+          select(models.CookBook).where(recipe_id == models.CookBook.id)
         )
 
         if res:
@@ -53,15 +53,15 @@ async  def get_recipes_id(
 
 
 @app.post("/recipes/", response_model=schemas.CookBookIn)
-async def add_recipe(recipe: schemas.CookBookIn)-> schemas.CookBookIn:
+async def add_recipe(recipe: schemas.CookBookIn) -> schemas.CookBookIn:
     new_recipe = models.CookBook(
         name=recipe.name, 
         cook_time=recipe.cook_time,
         descript=recipe.descript, 
         ingredients=recipe.ingredients,
     )
-    async with session as async_session:
-        
+    
+    async with session as async_session:        
         async_session.add(new_recipe)
         await async_session.commit()
         res = schemas.CookBookIn.model_validate(new_recipe)
