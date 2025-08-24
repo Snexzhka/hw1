@@ -17,4 +17,3 @@ class CookBookOut(BaseRecipes):
     id: int
     count: int
     model_config = ConfigDict(from_attributes=True)
-    
