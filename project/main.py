@@ -1,7 +1,7 @@
 from sqlalchemy.future import select
 from fastapi import FastAPI, Path
 from contextlib import asynccontextmanager
-from typing import List  
+from typing import List
 import schemas  # type: ignore[import-not-found]
 import models  # type: ignore[import-not-found]
 from database import engine, session  # type: ignore[import-not-found]
@@ -26,7 +26,7 @@ async def recipes() -> List[models.CookBook]:
         await async_session.commit()
     result = res.scalars().all()
     return [schemas.CookBookOut.model_validate(row) for row in result]
-    
+
 
 @app.get("/recipes/{recipe_id}", response_model=schemas.CookBookOut)
 async def get_recipes_id(
@@ -46,14 +46,14 @@ async def get_recipes_id(
 
 
 @app.post("/recipes/", response_model=schemas.CookBookIn)
-async def add_recipe(recipe: schemas.CookBookIn) -> schemas.CookBookIn:   
+async def add_recipe(recipe: schemas.CookBookIn) -> schemas.CookBookIn:
     new_recipe = models.CookBook(
         name=recipe.name,
         descript=recipe.descript,
         cook_time=recipe.cook_time,
-        ingredients=recipe.ingredients,     
-    )     
-    async with session as async_session:        
+        ingredients=recipe.ingredients,
+    )
+    async with session as async_session:
         async_session.add(new_recipe)
         await async_session.commit()
         res = schemas.CookBookIn.model_validate(new_recipe)
