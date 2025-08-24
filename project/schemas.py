@@ -6,6 +6,7 @@ from pydantic import BaseModel, Field, ConfigDict
 #     quantity: int = Field(..., title="quantity of ingred")
 #     cookbook_id: int
 
+
 class BaseRecipes(BaseModel):
     name: str = Field(..., title="name")
     cook_time: int = Field(..., title="time of cook")
