@@ -1,12 +1,16 @@
 import pytest
 
 
-
-data = {"name":"omlet", "cook_time":"13", "descript": "for breakfast", "ingredients": "milk, eags", }
+data = {
+    "name": "omlet",
+    "cook_time": "13",
+    "descript": "for breakfast",
+    "ingredients": "milk, eags",
+}
 
 
 @pytest.mark.asyncio
-async  def test_recipe_by_id(client):
+async def test_recipe_by_id(client):
     """
     Тест проверки эндпоинта для поиска рецепта по его id.Используется фикстура по созданию подключения, а, следовательно
     и создания БД с одной записью.
@@ -49,6 +53,7 @@ async def test_recipess(client):
     print(response.json())
     assert response.json()[0]["name"] == "Test omlet"
 
+
 @pytest.mark.asyncio
 async def test_post(client):
     """
@@ -62,5 +67,3 @@ async def test_post(client):
     assert response.json()["cook_time"] == 13
     assert response.json()["name"] == "omlet"
     print(response.json()["cook_time"])
-
-
