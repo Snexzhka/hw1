@@ -1,5 +1,6 @@
 from pydantic_settings import BaseSettings as PydanticSettings, SettingsConfigDict
 
+
 class Settings(PydanticSettings):
         
     model_config = SettingsConfigDict(
