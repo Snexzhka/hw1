@@ -2,7 +2,6 @@ from sqlalchemy.future import select
 from fastapi import FastAPI, Path
 from contextlib import asynccontextmanager
 
-
 from typing import List  
 
 import schemas  # type: ignore[import-not-found]
