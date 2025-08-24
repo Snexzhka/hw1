@@ -1,7 +1,7 @@
 import pytest_asyncio
 from typing import Any, AsyncGenerator
-from module_30_ci_linters.homework.hw1.project import models
-from module_30_ci_linters.homework.hw1.project.main import app
+import models
+import app
 from httpx import ASGITransport, AsyncClient
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
