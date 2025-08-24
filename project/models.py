@@ -2,8 +2,7 @@ from sqlalchemy import Column, String, Integer
 from database import Base  # type: ignore[import-not-found]
 
 
-class CookBook(Base):
-    
+class CookBook(Base):  
     __tablename__ = "Cookbook" 
     __table_args__ = {"extend_existing": True} 
     
