@@ -3,8 +3,7 @@ from database import Base  # type: ignore[import-not-found]
 
 
 class CookBook(Base):
-    __tablename__ = "Cookbook"
- 
+    __tablename__ = "Cookbook" 
     __table_args__ = {"extend_existing": True} 
     
     id = Column(Integer, primary_key=True)
