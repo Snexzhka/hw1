@@ -49,8 +49,7 @@ async def get_recipes_id(
 
 @app.post("/recipes/", response_model=schemas.CookBookIn)
 async def add_recipe(recipe: schemas.CookBookIn) -> schemas.CookBookIn:
-    new_recipe = models.CookBook(
-        
+    new_recipe = models.CookBook(  
         name=recipe.name, 
         descript=recipe.descript,
         cook_time=recipe.cook_time,
