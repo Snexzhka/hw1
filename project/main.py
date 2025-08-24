@@ -1,11 +1,7 @@
 from sqlalchemy.future import select
 from fastapi import FastAPI, Path
 from contextlib import asynccontextmanager
-
-
-
 from typing import List  
-
 import schemas  # type: ignore[import-not-found]
 import models  # type: ignore[import-not-found]
 from database import engine, session  # type: ignore[import-not-found]
@@ -55,11 +51,8 @@ async def add_recipe(recipe: schemas.CookBookIn) -> schemas.CookBookIn:
         name=recipe.name,
         descript=recipe.descript,
         cook_time=recipe.cook_time,
-        ingredients=recipe.ingredients,
-        
-    )   
-
-    
+        ingredients=recipe.ingredients,     
+    )     
     async with session as async_session:        
         async_session.add(new_recipe)
         await async_session.commit()
