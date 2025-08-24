@@ -40,6 +40,7 @@ jobs:
       - name: Lint with black
         run: |
           black --diff --check project/
+          black --diff --check tests/
       - name: Lint with isort
         run: |
           isort --check-only --profile black project/
