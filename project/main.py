@@ -9,7 +9,6 @@ import models  # type: ignore[import-not-found]
 import schemas  # type: ignore[import-not-found]
 
 
-
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     async with engine.begin() as conn:
