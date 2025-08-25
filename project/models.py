@@ -1,9 +1,8 @@
-from sqlalchemy import Column, String, Integer 
+from sqlalchemy import Column, Integer, String
 from database import Base  # type: ignore[import-not-found]
 
 
 class CookBook(Base):
-    
     __tablename__ = "Cookbook"
     __table_args__ = {"extend_existing": True}
 
