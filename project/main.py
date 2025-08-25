@@ -20,7 +20,7 @@ app = FastAPI(lifespan=lifespan)
 
 
 @app.get("/recipes/", response_model=List[schemas.CookBookOut])
-async def recipes() -> List[models.CookBook]:
+async def recipes() -> List[schemas.CookBookOut]:
     async with session as async_session:
         res = await async_session.execute(
             select(models.CookBook).order_by(models.CookBook.count.desc())
