@@ -6,9 +6,7 @@ from sqlalchemy.future import select
 
 from project import models  # type: ignore[import-not-found]
 from project import schemas  # type: ignore[import-not-found]
-from project.database import engine, session  # type: /
-                                                  ignore[import-not-found]
-
+from project.database import engine, session  # type: ignore[import-not-found]
 
 
 @asynccontextmanager
