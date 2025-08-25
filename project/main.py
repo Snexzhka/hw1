@@ -2,7 +2,7 @@ from contextlib import asynccontextmanager
 from typing import List
 
 from fastapi import FastAPI, Path
-from sqlalchemy.future import select
+from sqlalchemy.future import select, update
 
 from project import models  # type: ignore[import-not-found]
 from project import schemas  # type: ignore[import-not-found]
@@ -40,9 +40,11 @@ async def get_recipes_id(
         )
         result = res.scalar()
         if result:
-            result.count += 1
+            res.count =result.count + 1
+            print(res.count)
+            res.count += 1
+
             await async_session.commit()
-        else:
             result = None
         return result
 
