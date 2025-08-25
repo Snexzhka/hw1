@@ -33,7 +33,7 @@ async def recipes() -> List[schemas.CookBookOut]:
 @app.get("/recipes/{recipe_id}", response_model=schemas.CookBookOut)
 async def get_recipes_id(
     recipe_id: int = Path(..., title="id of recipe")
-) -> models.CookBook | str:
+) -> schemas.CookBookOut | str:
     async with session as async_session:
         res = await async_session.execute(
             select(models.CookBook).where(recipe_id == models.CookBook.id)
@@ -43,7 +43,7 @@ async def get_recipes_id(
             result.count += 1
             await async_session.commit()
         else:
-            result = "[]"
+            result = " "
         return result
 
 
