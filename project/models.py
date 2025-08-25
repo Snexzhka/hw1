@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String 
+from sqlalchemy import Column, String, Integer 
 from database import Base  # type: ignore[import-not-found]
 
 
