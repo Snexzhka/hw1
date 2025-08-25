@@ -1,6 +1,6 @@
+from contextlib import asynccontextmanager
 from typing import List
 
-from contextlib import asynccontextmanager
 from fastapi import FastAPI, Path
 from sqlalchemy.future import select
 
