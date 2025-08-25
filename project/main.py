@@ -36,7 +36,7 @@ async def get_recipes_id(
 ) -> schemas.CookBookOut | None:
     async with session as async_session:
         res = await async_session.execute(
-            select(models.CookBook).where(recipe_id == CookBook.id)
+            select(models.CookBook).where(recipe_id == models.CookBook.id)
         )
         result = res.scalar()
         if result:
