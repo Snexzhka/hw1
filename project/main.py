@@ -4,9 +4,11 @@ from typing import List
 from fastapi import FastAPI, Path
 from sqlalchemy.future import select
 
-import models  # type: ignore[import-not-found]
-import schemas  # type: ignore[import-not-found]
-from database import engine, session  # type: ignore[import-not-found]
+from hw1.project import models  # type: ignore[import-not-found]
+from hw1.project import schemas  # type: ignore[import-not-found]
+from hw1.project.database import engine, session  # type: /
+                                                  ignore[import-not-found]
+
 
 
 @asynccontextmanager
