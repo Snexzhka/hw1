@@ -4,9 +4,9 @@ from typing import List
 from fastapi import FastAPI, Path
 from sqlalchemy.future import select
 
-from hw1.project import models  # type: ignore[import-not-found]
-from hw1.project import schemas  # type: ignore[import-not-found]
-from hw1.project.database import engine, session  # type: /
+from project import models  # type: ignore[import-not-found]
+from project import schemas  # type: ignore[import-not-found]
+from project.database import engine, session  # type: /
                                                   ignore[import-not-found]
 
 
