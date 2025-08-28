@@ -21,11 +21,11 @@ app = FastAPI(lifespan=lifespan)
 
 @app.get("/recipes/", response_model=List[schemas.CookBookOut])
 async def recipes() -> List[schemas.CookBookOut]:
-    async with session as async_session:
-        res = await async_session.execute(
+    async with asyn_session as session:
+        res = await session.execute(
             select(models.CookBook).order_by(models.CookBook.count.desc())
         )
-        await async_session.commit()
+        await session.commit()
     result = res.scalars().all()
     return [schemas.CookBookOut.model_validate(row) for row in result]
 
@@ -34,19 +34,19 @@ async def recipes() -> List[schemas.CookBookOut]:
 async def get_recipes_id(
     recipe_id: int = Path(..., title="id of recipe")
 ) -> schemas.CookBookOut | None:
-    async with session as async_session:
-        res = await async_session.execute(
+    async with async_session as session:
+        res = await session.execute(
             select(models.CookBook).where(recipe_id == models.CookBook.id)
         )
         result = res.scalar()
         if result:
-            res.count =result.count + 1
+            result.count = result.count + 1
             print(res.count)
             res.count += 1
 
-            await async_session.commit()
-            result = None
-        return result
+            await session.commit()
+            return schemas.CookBookOut.model_validate(result)
+       
 
 
 
@@ -62,5 +62,5 @@ async def add_recipe(recipe: schemas.CookBookIn) -> schemas.CookBookIn:
         async_session.add(new_recipe)
         await async_session.commit()
         res = schemas.CookBookIn.model_validate(new_recipe)
-    #return res.model_dump()
-     return res
+     return res.model_dump()
+     
