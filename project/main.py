@@ -61,6 +61,6 @@ async def add_recipe(recipe: schemas.CookBookIn) -> schemas.CookBookIn:
     async with session as async_session:
         async_session.add(new_recipe)
         await async_session.commit()
-        res = schemas.CookBookIn.model_validate(new_recipe)
-     return res.model_dump()
+    return schemas.CookBookIn.model_validate(new_recipe)
+     
      
