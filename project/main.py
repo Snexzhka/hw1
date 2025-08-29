@@ -1,12 +1,18 @@
 from contextlib import asynccontextmanager
-from typing import List
+from typing import List, Dict
 
-from fastapi import FastAPI, Path
-from sqlalchemy.future import select, update
+from fastapi import FastAPI, Path, HTTPException
+from fastapi.params import Depends
+from sqlalchemy import update
 
-from project import models  # type: ignore[import-not-found]
-from project import schemas  # type: ignore[import-not-found]
-from project.database import engine, session  # type: ignore[import-not-found]
+from sqlalchemy.future import select
+from sqlalchemy.sql.annotation import Annotated
+
+
+import models  # type: ignore[import-not-found]
+import schemas  # type: ignore[import-not-found]
+from database import engine, async_session  # type: ignore[import-not-found]
+from models import CookBook
 
 
 @asynccontextmanager
@@ -21,9 +27,10 @@ app = FastAPI(lifespan=lifespan)
 
 @app.get("/recipes/", response_model=List[schemas.CookBookOut])
 async def recipes() -> List[schemas.CookBookOut]:
-    async with asyn_session as session:
+    async with async_session() as session:
+
         res = await session.execute(
-            select(models.CookBook).order_by(models.CookBook.count.desc())
+            select(models.CookBook).order_by(CookBook.count.desc())
         )
         await session.commit()
     result = res.scalars().all()
@@ -33,21 +40,24 @@ async def recipes() -> List[schemas.CookBookOut]:
 @app.get("/recipes/{recipe_id}", response_model=schemas.CookBookOut)
 async def get_recipes_id(
     recipe_id: int = Path(..., title="id of recipe")
-) -> schemas.CookBookOut | None:
-    async with async_session as session:
-        res = await session.execute(
-            select(models.CookBook).where(recipe_id == models.CookBook.id)
-        )
+) -> schemas.CookBookOut | dict:
+    async with async_session() as session:
+        query = select(models.CookBook).where(models.CookBook.id == recipe_id)
+        res = await session.execute(query)
         result = res.scalar()
         if result:
-            result.count = result.count + 1
-            print(res.count)
-            res.count += 1
-
+            query_for_count = (
+                update(models.CookBook)
+                .where(models.CookBook.id == recipe_id)
+                .values(count=result.count + 1)
+            )
+            await session.execute(query_for_count)
             await session.commit()
-            return schemas.CookBookOut.model_validate(result)
-       
-
+            answer: schemas.CookBookOut | dict = schemas.CookBookOut.model_validate(
+                result
+            )
+            return answer
+        raise HTTPException(status_code=404, detail="not found")
 
 
 @app.post("/recipes/", response_model=schemas.CookBookIn)
@@ -58,9 +68,10 @@ async def add_recipe(recipe: schemas.CookBookIn) -> schemas.CookBookIn:
         cook_time=recipe.cook_time,
         ingredients=recipe.ingredients,
     )
-    async with session as async_session:
-        async_session.add(new_recipe)
-        await async_session.commit()
-    return schemas.CookBookIn.model_validate(new_recipe)
-     
-     
+    async with async_session() as session:
+        session.add(new_recipe)
+        await session.flush()
+        await session.commit()
+        return schemas.CookBookIn.model_validate(new_recipe)
+        # print("res", res)
+        # return res.model_dump()
