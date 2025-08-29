@@ -1,18 +1,13 @@
 from contextlib import asynccontextmanager
-from typing import List, Dict
+from typing import List
 
-from fastapi import FastAPI, Path, HTTPException
-from fastapi.params import Depends
+from fastapi import FastAPI, HTTPException, Path
 from sqlalchemy import update
-
 from sqlalchemy.future import select
-from sqlalchemy.sql.annotation import Annotated
-
 
 import models  # type: ignore[import-not-found]
 import schemas  # type: ignore[import-not-found]
-from database import engine, async_session  # type: ignore[import-not-found]
-from models import CookBook
+from database import async_session, engine  # type: ignore[import-not-found]
 
 
 @asynccontextmanager
@@ -30,7 +25,7 @@ async def recipes() -> List[schemas.CookBookOut]:
     async with async_session() as session:
 
         res = await session.execute(
-            select(models.CookBook).order_by(CookBook.count.desc())
+            select(models.CookBook).order_by(models.CookBook.count.desc())
         )
         await session.commit()
     result = res.scalars().all()
