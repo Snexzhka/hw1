@@ -47,10 +47,7 @@ async def get_recipes_id(
             )
             await session.execute(query_for_count)
             await session.commit()
-            answer: schemas.CookBookOut | dict = schemas.CookBookOut.model_validate(
-                result
-            )
-            return answer
+            return schemas.CookBookOut.model_validate(result)
         raise HTTPException(status_code=404, detail="not found")
 
 
