@@ -1,6 +1,7 @@
 """
 isort:skip_file
 """
+
 from typing import Any, AsyncGenerator
 
 import pytest_asyncio
