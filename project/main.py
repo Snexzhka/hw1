@@ -4,7 +4,7 @@ from typing import List
 import models  # type: ignore[import-not-found]
 import schemas  # type: ignore[import-not-found]
 from database import async_session, engine  # type: ignore[import-not-found]
-from fastapi import FastAPI, HTTPException, Path
+from fastapi import FastAPI, HTTPException
 from sqlalchemy import update
 from sqlalchemy.future import select
 
@@ -32,9 +32,7 @@ async def recipes() -> List[schemas.CookBookOut]:
 
 
 @app.get("/recipes/{recipe_id}", response_model=schemas.CookBookOut)
-async def get_recipes_id(
-    recipe_id: int = Path(..., title="id of recipe")
-) -> schemas.CookBookOut | dict:
+async def get_recipes_id(recipe_id: int) -> schemas.CookBookOut | dict:
     async with async_session() as session:
         query = select(models.CookBook).where(models.CookBook.id == recipe_id)
         res = await session.execute(query)
