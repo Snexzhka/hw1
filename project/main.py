@@ -1,13 +1,12 @@
 from contextlib import asynccontextmanager
 from typing import List
 
-from fastapi import FastAPI, HTTPException, Path
-from sqlalchemy import update
-from sqlalchemy.future import select
-
 import models  # type: ignore[import-not-found]
 import schemas  # type: ignore[import-not-found]
 from database import async_session, engine  # type: ignore[import-not-found]
+from fastapi import FastAPI, HTTPException, Path
+from sqlalchemy import update
+from sqlalchemy.future import select
 
 
 @asynccontextmanager
