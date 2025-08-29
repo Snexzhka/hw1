@@ -1,6 +1,5 @@
 import pytest
 
-
 data = {
     "name": "omlet",
     "cook_time": "13",
