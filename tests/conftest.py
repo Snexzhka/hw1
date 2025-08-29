@@ -1,11 +1,11 @@
-import pytest_asyncio
 from typing import Any, AsyncGenerator
-from project import models
-from project.main import app
+
+import pytest_asyncio
 from httpx import ASGITransport, AsyncClient
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
+from module_30_ci_linters.homework.hw1.project import models
+from module_30_ci_linters.homework.hw1.project.main import app
 from sqlalchemy import insert
+from sqlalchemy.ext.asyncio import create_async_engine
 
 DATABASE_URL = "sqlite+aiosqlite:///./apps.py.db"
 
