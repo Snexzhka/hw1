@@ -1,6 +1,6 @@
-from sqlalchemy import Integer, Column, String
+from sqlalchemy import Column, Integer, String
 
-from project.database import Base  # type: ignore[import-not-found]
+from database import Base  # type: ignore[import-not-found]
 
 
 class CookBook(Base):
