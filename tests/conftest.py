@@ -2,8 +2,8 @@ from typing import Any, AsyncGenerator
 
 import pytest_asyncio
 from httpx import ASGITransport, AsyncClient
-from project import models
-from project.main import app
+from .project import models
+from .project.main import app
 from sqlalchemy import insert
 from sqlalchemy.ext.asyncio import create_async_engine
 
